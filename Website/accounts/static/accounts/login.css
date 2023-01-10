@@ -1,0 +1,25 @@
+.login-form{
+    width: 50%;
+    margin:0 auto;
+}
+/*.login-form{
+    border: 1px solid #d7d4d4;
+    border-radius: 5px;
+    padding: 80px 50px;
+}*/
+  .login-form button{
+    width: 60px;
+     margin-top: 20px;
+     border-radius: 5px;
+     border: 1px solid #A60606;
+     background-color: #ffffff;
+     color: #A60606;
+     transition: all 0.3s ease-in-out;
+}
+ .login-form button:hover{
+     color: #ffffff;
+     background-color: #A60606;
+ }
+ .login-form a{
+     color: #000000;
+ }

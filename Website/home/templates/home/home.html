@@ -1,0 +1,177 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block title %}HOME{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'home/home.css' %}">{% endblock %}
+
+{% block body %}
+
+
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{% static 'images/banner/banner-01.jpg' %}" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'images/banner/banner-02.jpg' %}" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'images/banner/banner-03.jpg' %}" class="d-block w-100" alt="...">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+
+
+    <div class="container">
+        <div class="row">
+            <div id="category-info" class="mt-5 mb-5 d-flex justify-content-center">
+                <h1>Categories</h1>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <section class="category col-12">
+        <div class="container">
+            <div class="row">
+                {% for cat in category %}
+                    <div class="card col-4 col-lg-12" style="width: 18rem;margin:0 auto ">
+                        <img src="{{ cat.image.url }}" class="card-img-top category-img" alt="{{ cat.name }}"
+                             title="{{ cat.name }}">
+                        <div class="card-body">
+                            <a href="{{ cat.get_absolute_url }}" style="text-decoration: none; color: #A60606"><h5
+                                    class="card-title">{{ cat.name }}</h5></a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="seperate">
+                <hr>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="ad mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="ad__title mb-5 col-lg-12 col-12">
+                    <h1 class="title">Why Us?</h1>
+                </div>
+                <main id="ad">
+                    <div class="ad__info col-lg-4 col-12">
+                        <div class="ad__info_icons mb-4">
+                            <span><i class='fas fa-truck' style='font-size:36px'></i></span>
+                        </div>
+                        <div class="ad__info_desc">
+                            <h3>Fast Delivery</h3>
+                            <p>Your vision, We delivered</p>
+                        </div>
+                    </div>
+                    <div class="ad__info col-lg-4 col-12">
+                        <div class="ad__info_icons mb-4">
+                            <span><i class="fas fa-map-marker-alt" style='font-size:36px'></i> </span>
+                        </div>
+                        <div class="ad__info_desc">
+                            <h3>Agent Offices </h3>
+                            <p>Best Offer for #no-online-shop people</p>
+                        </div>
+                    </div>
+                    <div class="ad__info col-lg-4 col-12">
+                        <div class="ad__info_icons mb-4">
+                            <span><i class='fas fa-award' style='font-size:36px'></i></span>
+                        </div>
+                        <div class="ad__info_desc">
+                            <h3>Best Quality</h3>
+                            <p>Pure Quality, Pure Satisfaction</p>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="seperate">
+                <hr>
+            </div>
+        </div>
+    </div>
+
+
+    <section class="products mt-5 " style="margin:0 20px">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-12" style="justify-content: center;display: flex">
+                    <h1 class="title" style="text-align: center;!important;">Latest Products</h1>
+                </div>
+                {% for p in products %}
+                            <div class="card mt-5 d-flex col-lg-4 col-6 products-card" style="width: 18rem;margin:0 70px;">
+                        <img src="{{ p.image.url }}" class="card-img-top category-img" alt="{{ p.name }}"
+                             title="{{ p.name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ p.name }}</h5>
+                            {% if p.discount %}
+                                <p class="card-text"
+                                   style="text-decoration: line-through #A60606">{{ p.unit_price }}</p>
+                                <h6 class="card-text">{{ p.total_price }}</h6>
+                            {% else %}
+                                <p class="card-text">{{ p.unit_price }}</p>
+                            {% endif %}
+                            <a href="{{ p.get_absolute_url }}" class="btn btn-warning">Details</a>
+                        </div>
+                    </div>
+
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="load-products">
+                <a href="{% url 'home:products' %}">Load More</a>
+            </div>
+        </div>
+
+
+        <div class="container">
+            <div class="row">
+                <div class="seperate">
+                    <hr>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

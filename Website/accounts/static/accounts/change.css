@@ -1,0 +1,18 @@
+.change-form{
+            width: 50%;
+            margin: 0 auto;
+        }
+        .change-form button{
+           width: 120px;
+            margin-top: 20px;
+            border-radius: 5px;
+            border: 1px solid #A60606;
+            background-color: #ffffff;
+            color: #A60606;
+            transition: all 0.3s ease-in-out;
+        }
+        .change-form button:hover{
+            color: #ffffff;
+            background-color: #A60606;
+            padding: 5px 10px;
+ }

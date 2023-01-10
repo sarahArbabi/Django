@@ -1,0 +1,228 @@
+{% extends '_base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}{{ product.name }}{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'home/detail.css' %}">{% endblock %}
+
+{% block body %}
+
+
+    <div class="container mt-5">
+        <div class="row item-container">
+            <div class="item">
+                {% for img in images %}
+                    <img src="{{ img.image.url }}" alt="{{ product.name }}" title="{{ product.name }}"
+                         class="indicator img-fluid">
+                {% endfor %}
+
+            </div>
+            <div class="main">
+                <img src="{{ product.image.url }}" class="content img-fluid" alt="{{ product.name }}"
+                     title="{{ product.name }}" style="width: 400px">
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <section class="">
+        <div class="container">
+            <div class="">
+                <div class="product-title">
+                    <h2>{{ product.name }}</h2>
+                    <h4>Rate : {{ product.average }}</h4>
+                </div>
+                <div class="product-price">
+                    {% if product.status !=  'None' %}
+                        <h5>Price : {{ variants.total_price }}</h5>
+                    {% else %}
+                        <h5>Price : {{ product.total_price }}</h5>
+                    {% endif %}
+                </div>
+                <div class="product-info">
+                    <p>Description : {{ product.information }}</p>
+                </div>
+            <br>
+                <div class="product-variant">
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+    <div class="container">
+        <div class="">
+            {% if product.status == 'Size' %}
+                <form method="post">
+                    {% csrf_token %}
+
+                    {#                <input type="radio" value="{{ data.id }}" {% if variants.id == data.id %} checked {% endif %} name="select" onchange="this.form.submit()">#}
+                    {#                <a href="">{{ data.size_variant }}</a>#}
+                    <select name="select" onchange="this.form.submit()" class="form-select"
+                            aria-label="Default select example" style="width: 20%">
+                        {% for data in variant %}
+                            <option value="{{ data.id }}">{{ data.name }}</option>
+                        {% endfor %}
+                    </select>
+
+                </form>
+
+            {% elif product.status == 'Color' %}
+                <form method="post">
+                    {% csrf_token %}
+
+                    <select name="select" onchange="this.form.submit()" class="form-select" style="width: 20%">
+                        {% for data in variant %}
+                            <option value="{{ data.id }}">{{ data.name }}</option>
+                        {% endfor %}
+                    </select>
+
+                </form>
+
+            {% else %}
+                <form method="post">
+                    {% csrf_token %}
+                    <select name="select" onchange="this.form.submit()" class="form-select"
+                            aria-label="Default select example" style="width: 50%">
+                        {% for data in variant %}
+                            <option value="{{ data.id }}"
+                                    {% if data.color_variant == variants.color_variant %}selected{% endif %}>{{ data.color_variant }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
+                <form method="post">
+                    {% csrf_token %}
+                    <select name="selects" onchange="this.form.submit()" class="form-select"
+                            aria-label="Default select example" style="width: 50%">
+                        {% for info in vars %}
+                            <option value="{{ info.id }}"
+                                    {% if info.id == variants.id %}selected{% endif %}>{{ info.size_variant }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
+            {% endif %}
+        </div>
+
+
+
+        <br>
+        {% if is_favorite %}
+            <a href="{% url 'home:favorite' product.id %}" style="color: red"><i class="fa fa-bookmark"
+                                                                                 style="font-size: 30px"></i> </a>
+        {% else %}
+            <a href="{% url 'home:favorite' product.id %}" class="disabled"><i class="fa fa-bookmark"
+                                                                               style="font-size: 30px"></i> </a>
+        {% endif %}
+    </div>
+
+
+
+
+    <br>
+    <div class="container">
+        <a href="{% url 'home:like' product.id %}">
+            <i class="fa fa-thumbs-up" style="font-size:30px;color:red"></i>
+        </a>
+
+        <a href="{% url 'home:dislike' product.id %}">
+            <i class="fa fa-thumbs-down" style="font-size:30px;color:black"></i>
+        </a>
+    </div>
+
+
+
+
+
+    <div class="container">
+        <form action="{% url 'home:compare' product.id %}">
+            {% csrf_token %}
+            <input type="submit" value="compare" name="product" class="btn btn-warning">
+        </form>
+    </div>
+<br>
+
+    <div class="container">
+        {% if product.status != 'None' %}
+            <form method="post" action="{% url 'cart:add_cart' product.id %}">
+                {% csrf_token %}
+                <input type="number" name="quantity" min="1" max="{{ variants.amount }}" class="form-control"
+                       style="width: 20%">
+                <input type="hidden" value="{{ variants.id }}" name="select1">
+                <button type="submit" class="btn btn-danger">Add to cart</button>
+            </form>
+        {% else %}
+            <form method="post" action="{% url 'cart:add_cart' product.id %}">
+                {% csrf_token %}
+                <input type="number" name="quantity" min="1" max="{{ product.amount }}" class="form-control"
+                       style="width: 20%">
+                <button type="submit" class="btn btn-danger">Add to cart</button>
+            </form>
+        {% endif %}
+    </div>
+
+
+
+    <div class="container">
+        {% for com in comment %}
+            <p>{{ com.comment }}</p>
+            <small>{{ com.rate }}</small>
+
+            <form method="post" action="{% url 'home:reply' product.id com.id %}">
+                {% csrf_token %}
+                {{ replyform|crispy }}
+                <button type="submit">Reply</button>
+            </form>
+
+            {% for data in com.comment_reply.all %}
+                <p>{{ data.comment }}</p>
+            {% endfor %}
+        {% endfor %}
+    </div>
+
+
+    <div class="container mt-5">
+        <form method="post" action="{% url 'home:comment' product.id %}" style="height: 200px;width: 50%">
+            {% csrf_token %}
+            {{ commentform|crispy }}
+            <button type="submit">Comment</button>
+        </form>
+    </div>
+
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="tags">
+                {% for tags in similar %}
+                <a href="{{ product.get_absolute_url }}"><img src="{{ tags.image.url }}" alt="{{ tags.name }}" title="{{ tags.name }}" style="width: 100px"></a>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        const indicator = document.getElementsByClassName('indicator');
+        const main = document.querySelector('.content');
+
+        for (let i = 0; i < indicator.length; i++) {
+            indicator[i].onclick = (e) => {
+
+                main.src = e.target.src;
+                main.style.display = 'block';
+
+
+                if (e.target == indicator[4]) {
+                    main.style.display = 'block';
+
+                }
+
+            }
+        }
+    </script>
+{% endblock %}

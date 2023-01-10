@@ -1,0 +1,12 @@
+You're Almost There!
+
+        Hi {{ user }},
+
+        click this address to complete the instructions.
+{{ protocol }}://{{ domain }}{% url 'accounts:password_reset_confirm' uidb64=uid token=token %}
+
+
+
+
+
+

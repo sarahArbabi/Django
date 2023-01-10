@@ -1,0 +1,139 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'footerstyle.css' %}">
+
+<main>
+    <div class="slide-container">
+        <div id="right-slide" class="arrow">
+            <i class="fas fa-chevron-right"></i>
+        </div>
+
+        <section class="s-content" id="slider">
+            <div class="thumbnail">
+                <img src="{% static 'images/footer/instagram-img-01.jpg' %}" alt="">
+            </div>
+            <div class="thumbnail">
+                <img src="{% static 'images/footer/instagram-img-02.jpg' %}" alt="">
+            </div>
+            <div class="thumbnail">
+                <img src="{% static 'images/footer/instagram-img-03.jpg' %}" alt="">
+            </div>
+            <div class="thumbnail">
+                <img src="{% static 'images/footer/instagram-img-04.jpg' %}" alt="">
+            </div>
+            <div class="thumbnail">
+                <img src="{% static 'images/footer/instagram-img-05.jpg' %}" alt="">
+            </div>
+            <div class="thumbnail">
+                <img src="{% static 'images/footer/instagram-img-06.jpg' %}" alt="">
+            </div>
+            <div class="thumbnail">
+                <img src="{% static 'images/footer/instagram-img-07.jpg' %}" alt="">
+            </div>
+            <div class="thumbnail">
+                <img src="{% static 'images/footer/instagram-img-08.jpg' %}" alt="">
+            </div>
+            <div class="thumbnail">
+                <img src="{% static 'images/footer/instagram-img-09.jpg' %}" alt="">
+            </div>
+        </section>
+
+
+        <div id="left-slide" class="arrow">
+            <i class="fas fa-chevron-left"></i>
+        </div>
+    </div>
+</main>
+
+<footer class="ms-5">
+        <div class="footer-main">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="footer-widget">
+                            <h4>About ThewayShop</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit<br>, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim .
+                                </p>
+                            <ul>
+                                <li><a href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fab fa-google-plus" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fa fa-rss" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fab fa-pinterest-p" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fab fa-whatsapp" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="footer-link">
+                            <h4>Information</h4>
+                            <ul>
+                                <li><a href="#">About Us</a></li>
+                                <li><a href="#">Customer Service</a></li>
+                                <li><a href="#">Our Sitemap</a></li>
+                                <li><a href="#">Terms &amp; Conditions</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                                <li><a href="#">Delivery Information</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="footer-link-contact ">
+                            <h4>Contact Us</h4>
+                            <ul>
+                                <li>
+                                    <p><i class="fas fa-map-marker-alt"></i>Address: Michael I. Days 3756 <br>Preston Street Wichita,<br> KS 67213 </p>
+                                </li>
+                                <li>
+                                    <p><i class="fas fa-phone-square"></i>Phone: <a href="tel:+1-888705770">+1-888 705 770</a></p>
+                                </li>
+                                <li>
+                                    <p><i class="fas fa-envelope"></i>Email: <a href="mailto:contactinfo@gmail.com">contactinfo@gmail.com</a></p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+<script>
+    let thumbnail = document.getElementsByClassName('thumbnail');
+    let slider = document.getElementById('slider');
+    let leftButton = document.getElementById('left-slide');
+    let rightButton = document.getElementById('right-slide');
+
+    leftButton.addEventListener('click', function () {
+        slider.scrollLeft -= 125;
+    })
+
+    rightButton.addEventListener('click', function () {
+        slider.scrollLeft += 125;
+    })
+
+
+    const maxScrollLeft = slider.scrollWidth - slider.clientWidth;
+
+
+    function autoPlay() {
+        if (slider.scrollLeft > (maxScrollLeft - 1)) {
+            slider.scrollLeft -= maxScrollLeft;
+        } else {
+            slider.scrollLeft += 1
+        }
+    }
+
+
+    let play = setInterval(autoPlay, 50)
+
+
+    for (let i = 0; i < thumbnail.length; i++) {
+        thumbnail[i].addEventListener('mouseover', () => {
+            clearInterval(play)
+        })
+        thumbnail[i].addEventListener('mouseout', () => {
+            return play = setInterval(autoPlay, 50);
+        })
+    }
+</script>

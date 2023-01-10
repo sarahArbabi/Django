@@ -1,0 +1,14 @@
+.fa-content{
+            justify-content: space-around;
+
+            align-items: center;
+        }
+        @media (max-width: 516px) {
+            .fa-content{
+                flex-direction: column;
+                display: block;
+            }
+            .fa-content .card-body a{
+                font-size: 30px;
+            }
+        }

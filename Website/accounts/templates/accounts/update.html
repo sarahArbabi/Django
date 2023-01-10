@@ -1,0 +1,25 @@
+ {% extends '_base.html' %}
+{% load static %}
+{% block title %}UPDATE{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'accounts/update.css' %}"> {% endblock %}
+{% load crispy_forms_tags %}
+
+
+{% block body %}
+    <style>
+
+
+    </style>
+    <div class="container mt-5">
+        <div class="row">
+                <div class="update-form">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ userform|crispy }}
+                        {{ profileform|crispy }}
+                    <button type="submit">Update</button>
+                    </form>
+                </div>
+        </div>
+    </div>
+{% endblock %}

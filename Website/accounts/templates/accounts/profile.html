@@ -1,0 +1,37 @@
+{% extends '_base.html' %}
+{% block title %}PROFILE{% endblock %}
+
+
+{% block body %}
+    <div class="container mt-5 mb-5 me-5">
+        <div class="row">
+            <div class="col-8">
+                <table class="table table-white table-striped" style="width: 80%">
+                    <tr class="">
+                        <th class=>Username : {{ profile.user.username }}</th>
+                    </tr>
+                    <tr>
+                        <th>First name : {{ profile.user.first_name }}</th>
+                    </tr>
+                    <tr>
+                        <th>Last name : {{ profile.user.last_name }}</th>
+                    </tr>
+                    <tr>
+                        <th>Email : {{ profile.user.email }}</th>
+                    </tr>
+                    <tr>
+                        <th>phone : {{ profile.phone }}</th>
+                    </tr>
+                    <tr>
+                        <th>Address : {{ profile.address }}</th>
+                    </tr>
+                </table>
+                <a href="{% url 'accounts:update' %}" style="color: #000" class="mb-3">Update?</a><br>
+                <a href="{% url 'accounts:password_change' %}" style="color: #000">Change Password?</a>
+            </div>
+            <div class="col-lg-3 col-6">
+                <img src="{{ profile.profile_image.url }}" title="{{ profile.user.username }}" alt="{{ profile.user.username }}">
+            </div>
+        </div>
+    </div>
+{% endblock %}

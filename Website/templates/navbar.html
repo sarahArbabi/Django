@@ -1,0 +1,56 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg bg-white">
+    <div class="container-fluid">
+        <img src="{% static 'images/logo/logo.png' %}" class="ms-5">
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto  mb-2 mb-lg-0 ms-auto ">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'home:home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home:products' %}">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'cart:cart_details' %}">Shopping Cart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home:contact' %}">Contact Us</a>
+                </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'accounts:profile' %}">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'accounts:history' %}">History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'accounts:favorite' %}">Favorites</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'accounts:logout' %}">Logout</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home:show' %}">Compare</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'accounts:signup' %}">Signup</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <form class="d-flex me-5" role="search" method="post" action="{% url 'home:search' %}">
+                {% csrf_token %}
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
+                <button class="btn btn-outline-danger" type="submit" style="border-color: #A60606;">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>

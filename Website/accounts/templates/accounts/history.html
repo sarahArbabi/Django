@@ -1,0 +1,43 @@
+{% extends '_base.html' %}
+{% block title %}{% endblock %}
+
+
+{% block body %}
+    <style>
+        .history .card {
+            margin: 0 auto;
+        }
+    </style>
+    <section class="history">
+        <div class="container mt-5">
+        <div class="row">
+            <div>
+                {% for i in data %}
+                    <div class="card mb-3 col-6 card-information" style="max-width: 550px;">
+                    <div class="row g-0 card-content">
+                        <div class="col-md-4">
+                            <img src="{{ i.product.image.url }}" class="img-fluid rounded-start" alt="{{ i.product.name }}" title="{{ i.product.name }}">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ i.product.name }}</h5>
+                                <p class="card-text"><small class="text-muted">Amount : {{ i.quantity }}</small></p>
+                                <p>{{ i.price }}</p>
+                                {% if i.order.paid %}
+                                    <h6 style="color:green;font-weight: 700">Paid</h6>
+                                {% else %}
+                                    <h6 style="color: #A60606;font-weight: 800">Unpaid</h6>
+                                {% endif %}
+                                <p class="card-text"><small class="text-muted">{{ i.order.create }}</small></p>
+                                <button class="btn btn-warning" href="{{ i.product.get_absolute_url }}">Back to details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    </section>
+{% endblock %}
+

@@ -1,0 +1,186 @@
+{% extends '_base.html' %}
+{% load thumbnail %}
+{% load static %}
+{% block title %}products{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'home/products.css' %}">{% endblock %}
+
+
+{% block body %}
+
+
+
+    <!-- Example split danger button -->
+
+    <div class="container mt-5 product-options">
+        <div class="col-3">
+            {% for data in category %}
+            <div class="btn-group me-5 mt-2">
+                <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                    <a href="{{ data.get_absolute_url }}" style="color: #fff">{{ data.name }}</a>
+                </button>
+                <ul class="dropdown-menu">
+                    {% for info in data.sub.all %}
+                        <li><a class="dropdown-item" href="{{ info.get_absolute_url }}">{{ info.name }}</a></li>
+                    {% endfor %}
+
+                </ul>
+            </div>
+        {% endfor %}
+        <form class="input-form mt-3 col-9">
+            <input type="submit" name="price" value="expensive" class="btn btn-warning">
+            <input type="submit" name="price" value="cheap" class="btn btn-warning">
+            <input type="submit" name="create" value="old" class="btn btn-warning mt-3">
+            <input type="submit" name="create" value="new" class="btn btn-warning mt-3">
+        </form>
+        </div>
+        <div class="filter">
+                <form class="multi-range-field my-5 pb-5 product-filter">
+            <div>
+                <label for="">Brand :
+                {{ filter.form.brand }}
+            </label>
+            </div>
+                    <br>
+            <h6>Price : </h6>
+            <div class="multi-range">
+                <hr>
+                <input type="range" name="price_1" min="{{ min_price }}" max="{{ max_price }}" step="5000"
+                       value="{{ min_price }}"
+                       oninput="this.parentNode.dataset.lbound=this.value;">
+
+                <input type="range" name="price_2" min="{{ min_price }}" max="{{ max_price }}" step="5000"
+                       value="{{ max_price }}"
+                       oninput="this.parentNode.dataset.lbound=this.value;">
+            </div>
+
+            <button type="submit" class="btn btn-danger">Filter</button>
+        </form>
+
+            </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <div class="container mt-5">
+
+            <div class="col-6">
+                <div class="products card-group" style="display: flex;justify-content: space-around">
+                    {% for product in products %}
+                        <div class="row row-cols-1 row-cols-md-2 g-4">
+                            <div class="col-lg-6 col-12">
+                                <div class="card  me-2 mb-3" style="width: 18rem;">
+                                    {% thumbnail product.image '500x500' as img %}
+                                        <img src="{{ img.url }}" class="card-img-top" alt="{{ product.name }}"
+                                             title="{{ product.name }}">
+                                    {% endthumbnail %}
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ product.name }}</h5>
+                                        {% if product.discount %}
+                                            <p class="card-text"
+                                               style="text-decoration: line-through">{{ product.unit_price }}$</p>
+                                            <h6>{{ product.total_price }}$</h6>
+                                        {% else %}
+                                            <p>{{ product.unit_price }}$</p>
+                                        {% endif %}
+                                        <small> <i class="fa fa-eye" aria-hidden="true"></i>{{ product.num_view }}
+                                        </small>
+                                        <a href="{{ product.get_absolute_url }}" class="btn btn-danger">Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+
+    </div>
+
+
+    <div class="container">
+        <div class="row">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    {% if products.has_previous %}
+
+                        <li class="page-item"><a class="page-link " href="?page={{ products.previous_page_number }}">Previous</a>
+                        </li>
+                        <li class="page-item"><a class="page-link"
+                                                 href="?page={{ products.previous_page_number }}">{{ products.previous_page_number }}</a>
+                        </li>
+
+                    {% endif %}
+
+                    <li class="page-item active" aria-current="page"><a class="page-link"
+                                                                        href="page?={{ products.number }}">{{ products.number }}</a>
+                    </li>
+
+                    {% if products.has_next %}
+                        <li class="page-item"><a class="page-link"
+                                                 href="?page={{ products.next_page_number }}">{{ products.next_page_number }}</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="?page={{ products.next_page_number }}">Next</a>
+                        </li>
+
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+
+    <script>
+        $('#multi3').mdbRange({
+            width: '100%',
+            single: {
+                active: true,
+                multi: {
+                    active: true,
+                    rangeLength: 2
+                },
+            }
+        });
+
+        $('#multi4').mdbRange({
+            width: '75%',
+            single: {
+                active: true,
+                multi: {
+                    active: true,
+                    rangeLength: 2
+                },
+            }
+        });
+
+        $('#multi5').mdbRange({
+            width: '50%',
+            single: {
+                active: true,
+                multi: {
+                    active: true,
+                    rangeLength: 2
+                },
+            }
+        });
+
+        $('#multi6').mdbRange({
+            width: '25%',
+            single: {
+                active: true,
+                multi: {
+                    active: true,
+                    rangeLength: 2
+                },
+            }
+        });
+    </script>
+{% endblock %}

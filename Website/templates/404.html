@@ -1,0 +1,28 @@
+{% extends '_base.html' %}
+{% load css %}
+<link rel="stylesheet" href="{% static '404.css' %}">
+
+{% block body %}
+    <div id="container">
+        <div class="content">
+            <h2>404</h2>
+            <h4>No Page Found</h4>
+            <p>Something went wrong</p>
+            <a href="{% url 'home:home' %}">Back home</a>
+        </div>
+    </div>
+
+    <script>
+        const container = document.querySelector('#container');
+        console.log(container)
+
+        window.onmousemove = function (e) {
+            let x = e.clientX / 5;
+            let y = e.clientY / 5;
+
+            container.style.backgroundPositionX = x + "px";
+            container.style.backgroundPositionY = y + "px";
+
+        }
+    </script>
+{% endblock %}

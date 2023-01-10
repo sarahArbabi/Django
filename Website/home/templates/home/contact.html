@@ -1,0 +1,43 @@
+{% extends '_base.html' %}
+{% block title %}{% endblock %}
+
+{% block body %}
+    <style>
+        .contact-form{
+            width: 50%;
+            margin: 0 auto;
+        }
+        .contact-form button{
+           width: 80px;
+            margin-top: 20px;
+            border-radius: 5px;
+            border: 1px solid #A60606;
+            background-color: #ffffff;
+            color: #A60606;
+            transition: all 0.3s ease-in-out;
+        }
+        .contact-form button:hover{
+            color: #ffffff;
+            background-color: #A60606;
+            padding: 5px 7px;
+ }
+
+    </style>
+    <div class="container">
+        <div class="row">
+            <div class="mt-5">
+                <form method="post" action="{% url 'home:contact' %}" class="contact-form">
+                    {% csrf_token %}
+                    <h1 class="text-center">Contact Form</h1>
+                    <input type="text" name="subject" class="form-control" placeholder="Subject">
+                    <br>
+                    <input type="email" name="email" class="form-control" placeholder="Email">
+                    <br>
+                    <textarea name="message" class="form-control" placeholder="message"></textarea>
+                    <br>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

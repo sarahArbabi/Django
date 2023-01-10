@@ -1,0 +1,20 @@
+{% extends '_base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %}SIGNUP{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'accounts/signup.css' %}">{% endblock %}
+
+
+{% block body %}
+    <div class="container mt-5 mb-5">
+        <div class="row">
+            <div class="signup-form">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    {{ form | crispy }}
+                    <button type="submit">SIGNUP</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
